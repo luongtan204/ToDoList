@@ -1,0 +1,50 @@
+# =========================================
+# ToDo List Monorepo - Root .gitignore
+# =========================================
+
+# 1. Các thư mục build và thư viện (Dependencies)
+node_modules/
+dist/
+dist-ssr/
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# 2. File cấu hình môi trường bảo mật (Bảo mật thông tin quan trọng)
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 3. Cấu hình của các IDE/Editor (IntelliJ, VSCode, Eclipse,...)
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# 4. Các file hệ thống tự động sinh ra (Windows/macOS)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 5. File Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
