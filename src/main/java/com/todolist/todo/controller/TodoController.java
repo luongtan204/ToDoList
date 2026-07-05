@@ -4,6 +4,7 @@ import com.todolist.common.response.ApiResponse;
 import com.todolist.common.response.PageResponse;
 import com.todolist.todo.dto.TodoRequest;
 import com.todolist.todo.dto.TodoResponse;
+import com.todolist.todo.entity.TodoStatus;
 import com.todolist.todo.service.TodoService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -31,10 +32,12 @@ public class TodoController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<PageResponse<TodoResponse>>> getTodos(
+            @RequestParam(required = false) TodoStatus status,
+            @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        Page<TodoResponse> todoPage = todoService.getTodos(page, size);
+        Page<TodoResponse> todoPage = todoService.getTodos(status, keyword, page, size);
         return ResponseEntity.ok(
                 ApiResponse.success(HttpStatus.OK.value(), "Lấy danh sách công việc thành công", PageResponse.from(todoPage, item -> item))
         );

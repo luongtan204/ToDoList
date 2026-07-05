@@ -27,9 +27,9 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<TodoResponse> getTodos(int page, int size) {
+    public Page<TodoResponse> getTodos(TodoStatus status, String keyword, int page, int size) {
         PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        return todoRepository.findAll(pageable).map(this::toResponse);
+        return todoRepository.findByFilters(status, normalizeKeyword(keyword), pageable).map(this::toResponse);
     }
 
     @Override
@@ -61,6 +61,10 @@ public class TodoServiceImpl implements TodoService {
     private Todo findTodoById(Long id) {
         return todoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy công việc với id = " + id));
+    }
+
+    private String normalizeKeyword(String keyword) {
+        return keyword == null ? null : keyword.trim();
     }
 
     private void applyRequest(Todo todo, TodoRequest request) {
